@@ -1,7 +1,11 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Navigation } from "./components/Navigation";
 import { PokemonCard } from "./components/PokemonCard";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { useEffect, useState } from "react";
+import Input from "./components/Input";
 import axios from "axios";
 
 const LIMIT = 150;
@@ -9,13 +13,14 @@ const pokeApi = `https://pokeapi.co/api/v2/pokemon/?limit=${LIMIT}`;
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
+  const [filteredPokemons, setFilteredPokemons] = useState([]);
 
   useEffect(() => {
     async function fetchPokemons() {
       try {
         const response = await axios.get(pokeApi);
         setPokemons(response.data.results);
-        console.log(response.data.results);
+        setFilteredPokemons(response.data.results);
       } catch (error) {
         console.error(error);
       }
@@ -23,15 +28,30 @@ const App = () => {
     fetchPokemons();
   }, []);
 
+  const handleFilter = (searchTerm) => {
+    const filteredResults = pokemons.filter((pokemon) =>
+      pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredPokemons(filteredResults);
+  };
+
   return (
     <div data-testid="app">
       <Navigation />
-
-      <h1>Pokemon should appear here</h1>
-
-      {pokemons.map((pokemon) => (
-        <PokemonCard key={pokemon.url} url={pokemon.url} name={pokemon.name} />
-      ))}
+      <Container fluid>
+        <Row>
+          <Col>
+            <Input handleFilter={handleFilter} />
+          </Col>
+        </Row>
+        <Row>
+          {filteredPokemons.map((pokemon) => (
+            <Col md={3} key={pokemon.url} className="mb-4">
+              <PokemonCard url={pokemon.url} name={pokemon.name} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 };
