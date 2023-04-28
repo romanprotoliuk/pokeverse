@@ -21,11 +21,16 @@
     "@babel/preset-env": "^7.18.0",
     "@babel/preset-react": "^7.17.12",
     "@ramseyinhouse/eslint-config": "^1.0.4",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.1",
+    "babel-loader": "^9.1.2",
     "buffer": "^6.0.3",
     "eslint": "^8.16.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "parcel": "^2.6.0",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4"
   }
 }

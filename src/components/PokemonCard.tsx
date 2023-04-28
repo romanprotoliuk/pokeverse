@@ -1,26 +1,45 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 
-function PokemonCard({ url, name }) {
+interface Ability {
+  ability: {
+    name: string;
+    url: string;
+  };
+  is_hidden: boolean;
+  slot: number;
+}
+
+interface Pokemon {
+  sprites: {
+    front_default: string;
+  };
+  abilities: Ability[];
+}
+
+interface Props {
+  url: string;
+  name: string;
+}
+
+const PokemonCard: React.FC<Props> = ({ url, name }) => {
   const [pokeImg, setPokeImg] = useState("");
-  const [abilities, setAbilities] = useState([]);
+  const [abilities, setAbilities] = useState<Ability[]>([]);
 
   useEffect(() => {
     async function fetchPokemons() {
       try {
-        const response = await axios.get(url);
-        const { sprites } = response.data;
-        const pokemonAbilities = response.data.abilities;
-        setAbilities(pokemonAbilities);
+        const response = await axios.get<Pokemon>(url);
+        const { sprites, abilities } = response.data;
+        setAbilities(abilities);
         setPokeImg(sprites.front_default);
       } catch (error) {
         console.error(error);
       }
     }
     fetchPokemons();
-  });
+  }, [url]);
 
   return (
     <div>
@@ -44,6 +63,6 @@ function PokemonCard({ url, name }) {
       )}
     </div>
   );
-}
+};
 
 export { PokemonCard };

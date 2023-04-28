@@ -11,9 +11,9 @@ import axios from "axios";
 const LIMIT = 150;
 const pokeApi = `https://pokeapi.co/api/v2/pokemon/?limit=${LIMIT}`;
 
-const App = () => {
-  const [pokemons, setPokemons] = useState([]);
-  const [filteredPokemons, setFilteredPokemons] = useState([]);
+const App: React.FC = () => {
+  const [pokemons, setPokemons] = useState<Array<any>>([]);
+  const [filteredPokemons, setFilteredPokemons] = useState<Array<any>>([]);
 
   useEffect(() => {
     async function fetchPokemons() {
@@ -28,7 +28,7 @@ const App = () => {
     fetchPokemons();
   }, []);
 
-  const handleFilter = (searchTerm) => {
+  const handleFilter = (searchTerm: string) => {
     const filteredResults = pokemons.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -56,4 +56,4 @@ const App = () => {
   );
 };
 
-export { App };
+export default App;
