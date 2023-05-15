@@ -7,11 +7,10 @@ const Navigation = () => {
   return (
     <Navbar sticky="top" bg="dark" variant="dark" className="mb-4">
       <Container>
-        <Navbar.Brand>
-          Pokeverse
-        </Navbar.Brand>
+        <Navbar.Brand>Pokeverse</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/">All Pokemon</Nav.Link>
+          <Nav.Link href="/favorites">My deck</Nav.Link>
         </Nav>
       </Container>
     </Navbar>
