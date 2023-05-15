@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import Image from "react-bootstrap/Image";
 
 const Navigation = () => {
   return (
