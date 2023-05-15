@@ -1,19 +1,20 @@
 import React from "react";
-import { Navigation } from "./components/Navigation";
-import { PokemonCard } from "./components/PokemonCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useEffect, useState } from "react";
-import Input from "./components/Input";
+import Input from "../components/Input";
+
+import { PokemonCard } from "../components/PokemonCard";
+import { useState, useEffect } from "react";
+
 import axios from "axios";
 
 const LIMIT = 150;
 const pokeApi = `https://pokeapi.co/api/v2/pokemon/?limit=${LIMIT}`;
 
-const App: React.FC = () => {
-  const [pokemons, setPokemons] = useState<Array<any>>([]);
-  const [filteredPokemons, setFilteredPokemons] = useState<Array<any>>([]);
+const Home = () => {
+  const [pokemons, setPokemons] = useState([]);
+  const [filteredPokemons, setFilteredPokemons] = useState([]);
 
   useEffect(() => {
     async function fetchPokemons() {
@@ -28,7 +29,7 @@ const App: React.FC = () => {
     fetchPokemons();
   }, []);
 
-  const handleFilter = (searchTerm: string) => {
+  const handleFilter = (searchTerm) => {
     const filteredResults = pokemons.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -36,8 +37,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div data-testid="app">
-      <Navigation />
+    <>
       <Container fluid>
         <Row>
           <Col>
@@ -52,8 +52,8 @@ const App: React.FC = () => {
           ))}
         </Row>
       </Container>
-    </div>
+    </>
   );
 };
 
-export { App};
+export default Home;

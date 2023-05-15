@@ -3,14 +3,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-interface Props {
-  handleFilter: (value: string) => void;
-}
-
-const Input: React.FC<Props> = ({ handleFilter }) => {
+const Input = ({ handleFilter }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
     handleFilter(event.target.value);
   };
